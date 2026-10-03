@@ -33,12 +33,12 @@ jobs:
 
       - name: Generate resume PDF
         run: |
-          sudo apt-get install -y -qq fonts-liberation > /dev/null
+          sudo apt-get install -y -qq fonts-liberation poppler-utils > /dev/null
           sudo chown -R "$USER" _site
           google-chrome --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
             --print-to-pdf="$PWD/_site/Shubhika_Shree_Resume.pdf" "file://$PWD/_site/resume.html"
           test -s _site/Shubhika_Shree_Resume.pdf
-          pages=$(grep -a -c "/Type */Page[^s]" _site/Shubhika_Shree_Resume.pdf || true)
+          pages=$(pdfinfo _site/Shubhika_Shree_Resume.pdf | awk '/^Pages:/ {print $2}')
           echo "Resume PDF pages: $pages"
           if [ "$pages" -gt 1 ]; then
             echo "::warning::The resume PDF is now $pages pages. Shorten some bullets in _data/resume.yml to keep it to one page."
