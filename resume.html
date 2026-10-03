@@ -1,0 +1,89 @@
+---
+layout: null
+---
+{%- assign r = site.data.resume -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ r.name }} - Resume</title>
+<!-- Print layout for the PDF. GitHub Actions prints this page to Shubhika_Shree_Resume.pdf on every update. -->
+<style>
+  @page { size: A4; margin: 7mm 11mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Times New Roman", "Liberation Serif", Times, serif; font-size: 9.8pt; line-height: 1.14; color: #000; margin: 0; background: #fff; }
+  .row > span:last-child { white-space: nowrap; padding-left: 8px; }
+  a { color: #0645ad; text-decoration: underline; }
+  .header { text-align: center; }
+  .name { font-size: 19pt; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase; }
+  .title { font-size: 11pt; color: #444; margin-top: 1px; }
+  .contact { margin-top: 2px; }
+  h2 { font-size: 11pt; font-weight: bold; margin: 5px 0 2px; padding-bottom: 1px; border-bottom: 1.2px solid #000; text-transform: uppercase; }
+  p { margin: 0; text-align: justify; }
+  ul { margin: 1px 0 2px; padding-left: 18px; }
+  li { text-align: justify; margin-bottom: 1px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .company { font-weight: bold; }
+  .proj { font-weight: bold; font-style: italic; }
+  .role { font-weight: bold; margin-top: 3px; }
+  .skills li { text-align: left; }
+  .sep { color: #555; padding: 0 4px; }
+  @media screen { body { max-width: 210mm; margin: 0 auto; padding: 7mm 11mm; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="name">{{ r.name }}</div>
+  <div class="title">{{ r.title }}</div>
+  <div class="contact">{{ r.location }}{% if r.phone %} | {{ r.phone }}{% endif %} | {{ r.email }} | <a href="{{ r.linkedin }}">LinkedIn</a> | <a href="{{ r.github }}">GitHub</a> | <a href="{{ r.website }}">Portfolio</a></div>
+</div>
+
+<h2>Professional Summary</h2>
+<p>{{ r.summary | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+
+<h2>Technical Skills</h2>
+<ul class="skills">
+  {% for g in r.skills %}<li><b>{{ g.group }}:</b> {{ g.items | join: ', ' }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Professional Experience</h2>
+{% for job in r.experience %}
+<div class="row"><span class="company">{{ job.company }}</span><b>{{ job.dates }}</b></div>
+{% if job.project %}<div class="proj">{{ job.project | replace: ' · ', ' | ' }}</div>{% endif %}
+{% if job.description %}<p>{{ job.description | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>{% endif %}
+{% for role in job.roles %}
+<div class="row role"><span>{{ role.title }}</span><span>{{ role.dates }}</span></div>
+<ul>
+  {% for b in role.bullets %}<li>{{ b | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+  {% endfor %}
+</ul>
+{% endfor %}
+{% endfor %}
+
+<h2>Projects</h2>
+{% for p in r.projects %}
+<div><b>{{ p.name }}</b><span class="sep">|</span><i>{{ p.stack | join: ', ' }}</i></div>
+<ul>
+  {% for b in p.bullets %}<li>{{ b | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+  {% endfor %}
+</ul>
+{% endfor %}
+
+<h2>Education</h2>
+{% for e in r.education %}
+<div class="row"><span><b>{{ e.degree }}</b> — {{ e.school }}{% if e.cgpa %} | CGPA: {{ e.cgpa }}{% endif %}</span><span>{{ e.years }}</span></div>
+{% endfor %}
+
+{% if r.achievements %}
+<h2>Achievements</h2>
+<ul>
+  {% for a in r.achievements %}<li>{{ a | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+</body>
+</html>

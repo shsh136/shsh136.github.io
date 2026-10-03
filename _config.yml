@@ -1,0 +1,4 @@
+# Site settings for GitHub Pages (Jekyll). Your resume details live in _data/resume.yml.
+title: Shubhika Shree
+exclude:
+  - README.md

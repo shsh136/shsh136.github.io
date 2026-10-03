@@ -1,0 +1,57 @@
+# Builds the website from _data/resume.yml, prints resume.html to the PDF,
+# and publishes both to https://shsh136.github.io on every push to main.
+# If any step fails, nothing is published and the previous version stays live.
+name: Build & publish portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - name: Build site with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Generate resume PDF
+        run: |
+          sudo apt-get install -y -qq fonts-liberation > /dev/null
+          sudo chown -R "$USER" _site
+          google-chrome --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
+            --print-to-pdf="$PWD/_site/Shubhika_Shree_Resume.pdf" "file://$PWD/_site/resume.html"
+          test -s _site/Shubhika_Shree_Resume.pdf
+          pages=$(grep -a -c "/Type */Page[^s]" _site/Shubhika_Shree_Resume.pdf || true)
+          echo "Resume PDF pages: $pages"
+          if [ "$pages" -gt 1 ]; then
+            echo "::warning::The resume PDF is now $pages pages. Shorten some bullets in _data/resume.yml to keep it to one page."
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

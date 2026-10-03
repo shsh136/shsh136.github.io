@@ -1,0 +1,129 @@
+# ==========================================================================
+#  YOUR RESUME DETAILS: edit this one file to update BOTH the website
+#  and the downloadable PDF. Changes go live about 2 minutes after you save.
+#
+#  Simple rules:
+#   - Keep the spaces at the start of each line exactly as they are.
+#   - Each bullet starts with "- " (dash + space).
+#   - Wrap words in **double stars** to make them bold.
+#   - If a line STARTS with * or ~ or contains ": " (colon + space),
+#     put the whole text in double quotes, like this:
+#       - "~10 hours saved: per outage"
+#   - If something breaks, GitHub emails you and the old version stays live.
+# ==========================================================================
+
+name: Shubhika Shree
+title: Python Backend & Cloud Automation Engineer
+location: India
+email: shubhika136@gmail.com
+phone: +91 9113179387          # shown only in the PDF. Delete this line to hide it.
+linkedin: https://www.linkedin.com/in/shubhika-shree/
+github: https://github.com/shsh136
+website: https://shsh136.github.io
+open_to: Open to backend & cloud roles
+
+# One line under your name on the website
+pitch: I build secure, automated backend systems that provision and manage cloud infrastructure across Azure and AWS.
+
+# "Professional Summary" paragraph in the PDF
+summary: >-
+  Software Engineer with 2 years of experience building automated backend systems and secure,
+  multi-cloud infrastructure across Azure and AWS. Hands-on expertise in REST API development
+  (Flask, FastAPI), Python-based cloud automation and workflow orchestration, and identity/secrets
+  management (HashiCorp Vault, Azure Key Vault, OAuth 2.0). Currently pursuing an M.Tech in
+  Artificial Intelligence & Data Science at IIT Patna.
+
+# "About" section on the website (each item is a paragraph)
+about:
+  - >-
+    I'm a software engineer with **2 years of experience** at Relevance Lab, building the automation
+    behind a multi-cloud infrastructure platform for a **Fortune 50 healthcare client**. My work spans
+    **Python Flask microservices**, VM lifecycle automation on **Azure and AWS**, and identity and
+    secrets management with **HashiCorp Vault, Azure Key Vault and OAuth 2.0**.
+  - >-
+    I care about systems that keep working under real production load: retries and backoff for flaky
+    dependencies, short-lived credentials instead of static keys, and automation that removes manual
+    steps. I'm also pursuing an **M.Tech in Artificial Intelligence & Data Science at IIT Patna**.
+
+# Number boxes on the website
+stats:
+  - value: 5,000+
+    label: provisioning requests / month
+  - value: "24"
+    label: Flask microservices
+  - value: 100+
+    label: VMs automated
+  - value: 1,000+
+    label: production issues resolved
+
+skills:
+  - group: Programming & Backend
+    items: [Python, SQL, Flask, FastAPI, REST APIs, Microservices, Redis]
+  - group: Cloud & Infrastructure
+    items: [Microsoft Azure, AWS, GCP, Azure Arc / Azure Local, Azure Resource Manager]
+  - group: Security & Identity
+    items: [HashiCorp Vault, Azure Key Vault, OAuth 2.0, SSH (Paramiko)]
+  - group: DevOps
+    items: [Git, CI/CD, Jenkins, ArgoCD, Kubernetes]
+  - group: Data & Analytics
+    items: [Pandas, Matplotlib, Seaborn, Streamlit, Excel]
+  - group: Testing & Tools
+    items: [Unit Testing, Behavior-Driven Development (BDD), JIRA]
+
+experience:
+  - company: Relevance Lab Pvt Ltd
+    dates: Nov 2024 – Present
+    project: Harmonize Provisioning · Fortune 50 Healthcare Client
+    description: >-
+      Developed and maintained features across **24 Python Flask microservices** powering Harmonize,
+      an infrastructure automation platform that orchestrates the end-to-end VM lifecycle (provisioning,
+      configuration, validation, and decommissioning) across **AWS and Azure**, processing
+      **5,000+ provisioning requests monthly** through a **150+ component state machine orchestration engine**.
+    roles:
+      - title: Software Engineer
+        dates: Apr 2026 – Present
+        bullets:
+          - Engineered **Azure Arc / Azure Local** support across 4 microservices, integrating Azure Resource Manager APIs to enable unified VM lifecycle operations and metadata retrieval.
+          - Implemented automated tag/lock management and **Rubrik-based backup** automation, validation, and decommissioning workflows across Global and China regions.
+          - Automated Azure Local VM provisioning for Windows and Linux by enhancing bootstrap scripts with IMDS-based VM detection and metadata/tag extraction, normalizing provider configuration across **100+ virtual machines**.
+          - Integrated internal provisioning and database workflows with automated OS-to-database role mapping, reducing manual provisioning effort while maintaining compatibility with standard Azure VM workflows.
+          - Hardened Tufin failure handling in decommission workflows with automated API retries and exponential backoff, incident ticket creation, and targeted alert routing, reducing downtime by up to **~10 hours** per transient Tufin API outage (incl. China region).
+          - Modernized SSH connectivity across Harmonize microservices by replacing raw Paramiko connections with an internal SSH library using **HashiCorp Vault-signed ephemeral keys** and Redis caching (36-hour TTL), eliminating repeated Vault signing calls and improving reliability under concurrent production workloads.
+          - Migrated Basic Authentication to **OAuth 2.0 Client Credentials flow** across Azure, AWS, and GCP integrations with secure token acquisition, caching, and auto-refresh, eliminating static credential exposure in Global and China environments.
+          - Diagnosed and resolved **1,000+ production and decommissioning issues**.
+        tags: [Python, Flask, Azure Arc, Azure Resource Manager, HashiCorp Vault, Redis, OAuth 2.0, Rubrik]
+      - title: Trainee Software Engineer
+        dates: Nov 2024 – Mar 2026
+        bullets:
+          - Contributed to automation and security hardening of the Harmonize platform, a multi-cloud infrastructure provisioning system supporting Azure and AWS environments.
+          - Strengthened infrastructure security by replacing static SSH credentials with **HashiCorp Vault-generated dynamic keys** for Linux VM authentication, eliminating long-lived SSH keys.
+          - Integrated **Azure Key Vault across 24 microservices** with proxy services for runtime secret retrieval, enabling centralized credential management and seamless secret rotation.
+          - Automated VM provisioning and decommissioning workflows across Azure and AWS, reducing manual intervention in lifecycle management.
+          - Automated Tableau VM zone placement using **IMDS API** integration and environment tag detection, eliminating manual zone configuration during provisioning.
+        tags: [Python, Azure Key Vault, HashiCorp Vault, AWS, Azure]
+
+projects:
+  - name: SPPU Result Converter
+    stack: [Python, Pandas, Streamlit, Regex, Excel]
+    bullets:
+      - Built a **Streamlit-based web application** that converts unstructured university result PDFs into structured Excel reports using regex-driven extraction and automated formatting pipelines.
+      - Reduced manual processing time from **~3 days to under 10 minutes (~99% reduction)**; adopted operationally by faculty at D.Y. Patil College of Engineering.
+  - name: Superstore Sales Data Analytics
+    stack: [Python, Pandas, Matplotlib, Seaborn]
+    bullets:
+      - Conducted end-to-end sales data analysis across regions and product categories to identify trends and top-performing segments.
+      - Performed data cleaning, exploratory analysis, and visualization to translate raw sales data into actionable business insights.
+
+education:
+  - degree: M.Tech in Artificial Intelligence & Data Science
+    school: Indian Institute of Technology (IIT) Patna
+    cgpa: "8.56"
+    years: 2025 – Present
+  - degree: B.E. in Computer Science Engineering
+    school: D.Y. Patil College of Engineering, Pune
+    cgpa: "8.6"
+    years: 2020 – 2024
+
+achievements:
+  - Recognized by leadership for dedication and technical contribution during critical Rubrik testing and release phases.
+  - Received formal appreciation from the client's Cloud team for professional commitment and consistent delivery quality.
