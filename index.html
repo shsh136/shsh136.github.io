@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shubhika Shree | Python Backend & Cloud Automation Engineer</title>
+<meta name="description" content="Shubhika Shree, Python backend and cloud automation engineer. Flask microservices, Azure, AWS, HashiCorp Vault, OAuth 2.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>
+  // Apply the saved theme before paint to avoid a flash.
+  try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<style>
+/* Layout: sticky left column (identity, nav, links) + scrolling right column of sections. Calm, recruiter-first. */
+:root {
+  color-scheme: light;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #14202b;
+  --muted: #5b6875;
+  --line: #e2e6eb;
+  --accent: #1f6f8b;
+  --accent-soft: #e4f1f5;
+
+  --head: "Sora", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0f161c; --surface: #151f27; --ink: #e6ecf1; --muted: #98a6b3; --line: #24323d; --accent: #6cc3dc; --accent-soft: #17323c;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f161c; --surface: #151f27; --ink: #e6ecf1; --muted: #98a6b3; --line: #24323d; --accent: #6cc3dc; --accent-soft: #17323c;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16.5px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--head); margin: 0; line-height: 1.2; text-wrap: balance; }
+
+.page { max-width: 1160px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 56px); display: grid; grid-template-columns: 340px 1fr; gap: 72px; }
+
+/* ---------- left column ---------- */
+.side { position: sticky; top: 0; height: 100vh; padding-block: 72px 48px; display: flex; flex-direction: column; }
+.avatar { width: 64px; height: 64px; border-radius: 16px; background: var(--accent); color: var(--surface); display: grid; place-items: center; font-family: var(--head); font-weight: 700; font-size: 1.35rem; margin-bottom: 24px; }
+.side h1 { font-size: 2.4rem; letter-spacing: -.02em; }
+.side .title { font-family: var(--head); font-weight: 600; font-size: 1.08rem; margin-top: 10px; }
+.side .pitch { color: var(--muted); margin: 14px 0 0; max-width: 32ch; }
+.open { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: .86rem; font-weight: 500; color: var(--ink); background: var(--accent-soft); padding: 4px 12px; border-radius: 999px; width: fit-content; }
+.open::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2fa36b; }
+
+.nav { margin-top: 44px; display: grid; gap: 4px; }
+.nav a { display: flex; align-items: center; gap: 14px; color: var(--muted); font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 6px 0; text-decoration: none; }
+.nav a::before { content: ""; width: 28px; height: 1px; background: var(--muted); transition: width .2s, background .2s; }
+.nav a:hover, .nav a.active { color: var(--ink); }
+.nav a:hover::before, .nav a.active::before { width: 60px; background: var(--ink); }
+
+.side-foot { margin-top: auto; display: grid; gap: 18px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 600; font-size: .95rem; padding: 11px 20px; border-radius: 10px; background: var(--accent); color: var(--surface); width: fit-content; border: 0; cursor: pointer; }
+.btn:hover { text-decoration: none; filter: brightness(1.08); }
+.links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.icon-link { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); background: var(--surface); transition: color .2s, border-color .2s; }
+.icon-link:hover { color: var(--accent); border-color: var(--accent); }
+.icon-link svg { width: 19px; height: 19px; fill: currentColor; }
+.theme-btn { font: inherit; cursor: pointer; }
+
+/* ---------- right column ---------- */
+main { padding-block: 72px 96px; display: grid; gap: 88px; min-width: 0; }
+section { scroll-margin-top: 40px; }
+.sec-title { font-family: var(--mono); font-size: .78rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
+.sec-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+.about p { margin: 0 0 14px; max-width: 64ch; color: var(--muted); }
+.about p strong { color: var(--ink); font-weight: 600; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.stat b { display: block; font-family: var(--head); font-size: 1.55rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat span { font-size: .84rem; color: var(--muted); line-height: 1.35; display: block; margin-top: 4px; }
+
+/* experience */
+.company { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.company h3 { font-size: 1.25rem; }
+.company .client { color: var(--muted); font-size: .95rem; margin: 4px 0 0; }
+.dates { font-family: var(--mono); font-size: .8rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.company-desc { color: var(--muted); margin: 12px 0 0; max-width: 66ch; }
+
+.timeline { margin-top: 28px; display: grid; gap: 34px; border-left: 2px solid var(--line); padding-left: 26px; }
+.role { position: relative; }
+.role::before { content: ""; position: absolute; left: -34px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.role.current::before { background: var(--accent); }
+.role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.role-head h4 { font-family: var(--head); font-size: 1.05rem; font-weight: 600; margin: 0; }
+.role ul { margin: 12px 0 0; padding-left: 18px; display: grid; gap: 8px; }
+.role li { color: var(--muted); max-width: 70ch; }
+.role li::marker { color: var(--accent); }
+.role li strong { color: var(--ink); font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.tag { font-size: .78rem; font-weight: 500; color: var(--accent); background: var(--accent-soft); padding: 3px 10px; border-radius: 999px; }
+
+/* skills */
+.skills { display: grid; gap: 14px; }
+.skill-row { display: grid; grid-template-columns: 190px 1fr; gap: 16px; align-items: start; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.skill-row:last-child { border-bottom: 0; }
+.skill-row h3 { font-family: var(--body); font-size: .95rem; font-weight: 600; padding-top: 3px; }
+.skill-row .tags { margin-top: 0; }
+.skill-row .tag { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+
+/* projects */
+.projects { display: grid; gap: 16px; }
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; transition: border-color .2s, transform .2s; }
+.project:hover { border-color: var(--accent); transform: translateY(-2px); }
+.project h3 { font-size: 1.1rem; }
+.project p { color: var(--muted); margin: 10px 0 0; max-width: 68ch; }
+.result { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-weight: 600; font-size: .92rem; color: var(--ink); background: var(--accent-soft); padding: 6px 12px; border-radius: 8px; }
+.result s { color: var(--muted); font-weight: 500; }
+
+/* education */
+.edu { display: grid; gap: 16px; }
+.edu-item { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.edu-item h3 { font-size: 1.02rem; }
+.edu-item p { margin: 0; color: var(--muted); grid-column: 1; }
+.edu-item .right { grid-column: 2; grid-row: 1 / span 2; text-align: right; display: flex; flex-direction: column; gap: 2px; }
+.cgpa { font-family: var(--head); font-weight: 700; font-size: 1.15rem; color: var(--accent); }
+
+.awards { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.awards li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; color: var(--muted); max-width: 70ch; }
+.awards li::before { content: "★"; color: var(--accent); font-size: 1rem; line-height: 1.6; }
+
+.contact-box { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 30px; }
+.contact-box h3 { font-size: 1.5rem; }
+.contact-box p { color: var(--muted); margin: 10px 0 20px; max-width: 56ch; }
+.contact-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+footer { font-size: .85rem; color: var(--muted); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px) {
+  .page { grid-template-columns: 1fr; gap: 0; }
+  .side { position: static; height: auto; padding-block: 48px 8px; }
+  .nav { display: none; }
+  .side-foot { margin-top: 28px; }
+  main { padding-top: 40px; gap: 64px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .skill-row { grid-template-columns: 1fr; gap: 8px; }
+  .edu-item { grid-template-columns: 1fr; }
+  .edu-item .right { grid-column: 1; grid-row: auto; text-align: left; flex-direction: row; gap: 12px; align-items: baseline; }
+  .timeline { padding-left: 20px; }
+  .role::before { left: -28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= LEFT COLUMN ================= -->
+  <aside class="side">
+    <!-- <div class="avatar" aria-hidden="true">SS</div> -->
+    <h1>Shubhika Shree</h1>
+    <p class="title">Python Backend &amp; Cloud Automation Engineer</p>
+    <p class="pitch">I build secure, automated backend systems that provision and manage cloud infrastructure across Azure and AWS.</p>
+    <span class="open">Open to backend &amp; cloud roles</span>
+
+    <nav class="nav" aria-label="Page sections">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+    </nav>
+
+    <div class="side-foot">
+      <a class="btn" href="Shubhika_Shree_Resume.pdf" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+        Download Resume
+      </a>
+      <div class="links">
+        <a class="icon-link" href="https://github.com/shsh136" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        </a>
+        <a class="icon-link" href="https://www.linkedin.com/in/shubhika-shree/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+        <a class="icon-link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=shubhika136@gmail.com" target="_blank" rel="noopener" aria-label="Email (opens Gmail)">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.2-8 5-8-5V6l8 5 8-5v2.2z"/></svg>
+        </a>
+        <button class="icon-link theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8C12.92 3.04 12.46 3 12 3z"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= RIGHT COLUMN ================= -->
+  <main>
+
+    <section id="about" class="about" aria-labelledby="about-h">
+      <h2 class="sec-title" id="about-h">About</h2>
+      <p>I'm a software engineer with <strong>2 years of experience</strong> at Relevance Lab, building the automation behind a multi-cloud infrastructure platform for a <strong>Fortune 50 healthcare client</strong>. My work spans <strong>Python Flask microservices</strong>, VM lifecycle automation on <strong>Azure and AWS</strong>, and identity and secrets management with <strong>HashiCorp Vault, Azure Key Vault and OAuth 2.0</strong>.</p>
+      <p>I care about systems that keep working under real production load: retries and backoff for flaky dependencies, short-lived credentials instead of static keys, and automation that removes manual steps. I'm also pursuing an <strong>M.Tech in Artificial Intelligence &amp; Data Science at IIT Patna</strong>.</p>
+      <div class="stats">
+        <div class="stat"><b>5,000+</b><span>provisioning requests / month</span></div>
+        <div class="stat"><b>24</b><span>Flask microservices</span></div>
+        <div class="stat"><b>100+</b><span>VMs automated</span></div>
+        <div class="stat"><b>1,000+</b><span>production issues resolved</span></div>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="exp-h">
+      <h2 class="sec-title" id="exp-h">Experience</h2>
+      <div class="company">
+        <div>
+          <h3>Relevance Lab Pvt Ltd</h3>
+          <p class="client">Harmonize Provisioning · Fortune 50 Healthcare Client</p>
+        </div>
+        <span class="dates">Nov 2024 – Present</span>
+      </div>
+      <p class="company-desc">An infrastructure automation platform of 24 Python Flask microservices that orchestrates the full VM lifecycle (provisioning, configuration, validation, decommissioning) across AWS and Azure through a 150+ component state machine engine.</p>
+
+      <div class="timeline">
+        <div class="role current">
+          <div class="role-head"><h4>Software Engineer</h4><span class="dates">Apr 2026 – Present</span></div>
+          <ul>
+            <li>Engineered <strong>Azure Arc / Azure Local</strong> support across 4 microservices, integrating Azure Resource Manager APIs for unified VM lifecycle operations and metadata retrieval.</li>
+            <li>Implemented automated tag/lock management and <strong>Rubrik-based backup</strong> automation, validation and decommissioning workflows across Global and China regions.</li>
+            <li>Automated Azure Local VM provisioning for Windows and Linux with IMDS-based VM detection in bootstrap scripts, normalizing configuration across <strong>100+ virtual machines</strong>.</li>
+            <li>Automated OS-to-database role mapping between provisioning and database workflows, reducing manual provisioning effort.</li>
+            <li>Hardened Tufin failure handling with API retries, exponential backoff, incident tickets and targeted alerts, reducing downtime by up to <strong>~10 hours per outage</strong>.</li>
+            <li>Replaced raw Paramiko SSH with an internal library using <strong>HashiCorp Vault-signed ephemeral keys</strong> and Redis caching (36-hour TTL), removing repeated signing calls under concurrent load.</li>
+            <li>Migrated Basic Authentication to the <strong>OAuth 2.0 Client Credentials flow</strong> across Azure, AWS and GCP integrations, with token caching and automatic refresh.</li>
+            <li>Diagnosed and resolved <strong>1,000+ production and decommissioning issues</strong>.</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Azure Arc</span><span class="tag">Azure Resource Manager</span><span class="tag">HashiCorp Vault</span><span class="tag">Redis</span><span class="tag">OAuth 2.0</span><span class="tag">Rubrik</span></div>
+        </div>
+
+        <div class="role">
+          <div class="role-head"><h4>Trainee Software Engineer</h4><span class="dates">Nov 2024 – Mar 2026</span></div>
+          <ul>
+            <li>Contributed to automation and security hardening of Harmonize, a multi-cloud provisioning platform for Azure and AWS.</li>
+            <li>Replaced static SSH credentials with <strong>Vault-generated dynamic keys</strong> for Linux VM authentication, eliminating long-lived SSH keys.</li>
+            <li>Integrated <strong>Azure Key Vault across 24 microservices</strong> with proxy services for runtime secret retrieval and seamless rotation.</li>
+            <li>Automated VM provisioning and decommissioning workflows across Azure and AWS, reducing manual intervention.</li>
+            <li>Automated Tableau VM zone placement using IMDS API integration and environment tag detection.</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Azure Key Vault</span><span class="tag">HashiCorp Vault</span><span class="tag">AWS</span><span class="tag">Azure</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-h">
+      <h2 class="sec-title" id="skills-h">Skills</h2>
+      <div class="skills">
+        <div class="skill-row"><h3>Languages &amp; Backend</h3><div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Flask</span><span class="tag">FastAPI</span><span class="tag">REST APIs</span><span class="tag">Microservices</span><span class="tag">Redis</span></div></div>
+        <div class="skill-row"><h3>Cloud</h3><div class="tags"><span class="tag">Microsoft Azure</span><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">Azure Arc / Azure Local</span><span class="tag">Azure Resource Manager</span></div></div>
+        <div class="skill-row"><h3>Security &amp; Identity</h3><div class="tags"><span class="tag">HashiCorp Vault</span><span class="tag">Azure Key Vault</span><span class="tag">OAuth 2.0</span><span class="tag">SSH (Paramiko)</span></div></div>
+        <div class="skill-row"><h3>DevOps</h3><div class="tags"><span class="tag">Git</span><span class="tag">CI/CD</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">Kubernetes</span></div></div>
+        <div class="skill-row"><h3>Data &amp; Analytics</h3><div class="tags"><span class="tag">Pandas</span><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Streamlit</span><span class="tag">Excel</span></div></div>
+        <div class="skill-row"><h3>Testing &amp; Tools</h3><div class="tags"><span class="tag">Unit Testing</span><span class="tag">BDD</span><span class="tag">JIRA</span></div></div>
+      </div>
+    </section>
+
+    <section id="projects" aria-labelledby="proj-h">
+      <h2 class="sec-title" id="proj-h">Projects</h2>
+      <div class="projects">
+        <article class="project">
+          <h3>SPPU Result Converter</h3>
+          <p>A Streamlit web app that converts unstructured university result PDFs into structured Excel reports using regex-driven extraction and automated formatting. Adopted by faculty at D.Y. Patil College of Engineering.</p>
+          <span class="result"><s>~3 days</s> → under 10 minutes (~99% faster)</span>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Streamlit</span><span class="tag">Regex</span><span class="tag">Excel</span></div>
+        </article>
+        <article class="project">
+          <h3>Superstore Sales Data Analytics</h3>
+          <p>End-to-end analysis of sales across regions and product categories: data cleaning, exploratory analysis and visualizations that identify trends and top-performing segments.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span><span class="tag">Seaborn</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="education" aria-labelledby="edu-h">
+      <h2 class="sec-title" id="edu-h">Education &amp; Recognition</h2>
+      <div class="edu">
+        <div class="edu-item">
+          <h3>M.Tech, Artificial Intelligence &amp; Data Science</h3>
+          <div class="right"><span class="cgpa">8.56 CGPA</span><span class="dates">2025 – Present</span></div>
+          <p>Indian Institute of Technology (IIT) Patna</p>
+        </div>
+        <div class="edu-item">
+          <h3>B.E., Computer Science Engineering</h3>
+          <div class="right"><span class="cgpa">8.6 CGPA</span><span class="dates">2020 – 2024</span></div>
+          <p>D.Y. Patil College of Engineering, Pune</p>
+        </div>
+      </div>
+      <ul class="awards" style="margin-top: 26px">
+        <li>Recognized by leadership for dedication and technical contribution during critical Rubrik testing and release phases.</li>
+        <li>Received formal appreciation from the client's Cloud team for professional commitment and consistent delivery quality.</li>
+      </ul>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="contact-box">
+        <h3 id="contact-h">Let's talk</h3>
+        <p>I'm open to Python backend, cloud automation and platform engineering roles. The fastest way to reach me is email at <strong class="email-text">shubhika136@gmail.com</strong>.</p>
+        <div class="contact-actions">
+          <a class="btn" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=shubhika136@gmail.com" target="_blank" rel="noopener">Email me</a>
+          <button class="btn btn-outline" type="button" id="copyEmail">Copy email</button>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/shubhika-shree/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-outline" href="Shubhika_Shree_Resume.pdf" download>Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2026 Shubhika Shree</footer>
+  </main>
+</div>
+
+<script>
+  // Dark mode toggle (remembers the choice)
+  document.getElementById("themeBtn").addEventListener("click", () => {
+    const root = document.documentElement;
+    const isDark = root.dataset.theme
+      ? root.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = isDark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+
+  // Copy email to clipboard
+  const copyBtn = document.getElementById("copyEmail");
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText("shubhika136@gmail.com");
+      copyBtn.textContent = "Copied!";
+    } catch (e) {
+      copyBtn.textContent = "shubhika136@gmail.com";
+    }
+    setTimeout(() => (copyBtn.textContent = "Copy email"), 2000);
+  });
+
+  // Highlight the nav link for the section in view
+  const links = [...document.querySelectorAll(".nav a")];
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll("main section").forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
