@@ -58,7 +58,7 @@ stats:
 
 skills:
   - group: Programming & Backend
-    items: [Python, SQL, Flask, FastAPI, REST APIs, Microservices, Redis]
+    items: [Python, SQL, Flask, FastAPI, REST APIs, Microservices]
   - group: Cloud & Infrastructure
     items: [Microsoft Azure, AWS, GCP, Azure Arc / Azure Local, Azure Resource Manager]
   - group: Security & Identity
